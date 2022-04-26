@@ -80,7 +80,7 @@ export async function getStaticPaths() {
     }
   })
   return {
-    paths: formatedData.map((character) => {
+    paths: formatedData.slice(0, 50).map((character) => {
       const slug = character.slug
       return {
         params: {

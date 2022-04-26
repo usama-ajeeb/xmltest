@@ -6,6 +6,7 @@ const { XMLParser, XMLBuilder } = require('fast-xml-parser')
 const fs = require('fs')
 
 export default function Home({ data }) {
+  console.log(data)
   return (
     <div className={styles.container}>
       <Head>
