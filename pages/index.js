@@ -58,7 +58,7 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const results = await fetch('/api/hello')
+  const results = await fetch(`${process.env.VERCEL_URL}/api/hello`)
 
   const result = await results.json()
 
