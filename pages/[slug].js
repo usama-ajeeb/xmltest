@@ -32,7 +32,7 @@ export async function getInitialProps({ params }) {
   )
   return {
     props: {
-      data: results[0],
+      data: results[0] || {},
     },
   }
 }
