@@ -27,7 +27,7 @@ export default PageTemplate
 
 export async function getStaticProps({ params }) {
   const slug = params.slug
-  const results = await fetch(`api/${slug}`).then((res) => res.json())
+  const results = await fetch(`/api/${slug}`).then((res) => res.json())
   return {
     props: {
       data: results[0],
@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const characters = await fetch('api/hello').then((res) => res.json())
+  const characters = await fetch('/api/hello').then((res) => res.json())
   return {
     paths: characters.map((character) => {
       const slug = character.slug
