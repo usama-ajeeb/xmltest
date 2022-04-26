@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+const { XMLParser, XMLBuilder } = require('fast-xml-parser')
+const fs = require('fs')
 
 export default function Home({ data }) {
   return (
@@ -58,13 +60,29 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const results = await fetch(`${process.env.VERCEL_URL}/api/hello`)
+  // const results = await fetch(`http://localhost:3000//api/hello`)
 
-  const result = await results.json()
+  // const result = await results.json()
+  const parser = new XMLParser()
+  var json = fs.readFileSync('data/resources-haznote.xml', 'utf8')
+  const data = parser.parse(json)
+
+  const formatedData = data.dpnodes.dpnode.map((i) => {
+    return {
+      title: i.Title,
+      date: i.Date.span,
+      body: i.Body,
+      download: i.Download,
+      img: `https://test-bnhcrc.pantheonsite.io/sites/default/files/${i[
+        'Key-Image'
+      ].span.a.slice(9, i['Key-Image'].span.a.length)}`,
+      slug: i.Title.toLowerCase().replace(/ /g, '-').replace(/[:]/g, ''),
+    }
+  })
 
   return {
     props: {
-      data: result,
+      data: formatedData,
     },
   }
 }
